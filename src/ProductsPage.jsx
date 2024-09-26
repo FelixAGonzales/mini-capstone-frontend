@@ -1,18 +1,22 @@
 import { ProductsIndex } from "./ProductsIndex"
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 export function ProductsPage() {
-  const products = [{
-    id: 1, name: "xbox", price: 150, description: "made by MS", tax: 10, total: 160 
-  }, {
-    id: 1, name: "xbox", price: 150, description: "made by MS", tax: 10, total: 160 
-  },
-];
 
+  const [products, setProducts] = useState([]);
 
+  const handleIndex = () => {
+    axios.get("http://localhost:3000/products.json").then( response => {
+      setProducts(response.data);
+    });
+  };
+
+  useEffect(handleIndex, []);
 
   return (
     <main>
-      <h1>Welcome to React!</h1>
+      <h1>Welcome to Zamazon!</h1>
       <ProductsIndex products={products}/>
     </main>
   )
